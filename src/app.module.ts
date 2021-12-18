@@ -1,24 +1,19 @@
+import { DatabaseModule } from './database/database.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UsuarioModule } from './usuario/usuario.module';
-
-const ormOptions: TypeOrmModuleOptions = {
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: '123456',
-  database: 'cliente1sti',
-  autoLoadEntities: true,
-  synchronize: true
-};
+import { HttpModule } from '@nestjs/axios';
+import { CepModule } from './cep/cep.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(ormOptions),
-    UsuarioModule
+    ConfigModule.forRoot(),
+    DatabaseModule,
+    UsuarioModule,
+    HttpModule,
+    CepModule
   ],
   controllers: [AppController],
   providers: [AppService],
