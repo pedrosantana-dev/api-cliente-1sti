@@ -50,23 +50,16 @@ export class UsuarioService {
     }
 
     async remover(id: number) {
-        const resultado = await this.repo.delete({ id });
+        const deletado = await this.repo.delete({ id });
 
-        if (resultado.affected === 0) {
-            throw new NotFoundException('Usuário não excluído');
+        if (!deletado) {
+            return { success: false };
         }
-        else {
-            return { success: true };
-        }
+        return { success: true };
     }
 
     async todosOsUsuarios() {
-        try {
-            return await this.repo.find({});
-        }
-        catch (error) {
-            throw new InternalServerErrorException(error, 'Erro interno do servidor');
-        }
+        return await this.repo.find({});
     }
 
     async usuarioPorCpf(cpf: string) {
