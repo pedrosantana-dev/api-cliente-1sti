@@ -1,18 +1,26 @@
-# Use root/example as user/password credentials
-version: '3.1'
+version: "3.5"
 
 services:
-
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: cliente1sti
-
-  adminer:
-    image: adminer
-    restart: always
+  api:
+    container_name: nest_api
+    build: .
     ports:
-      - 8080:8080
+      - "3000:3000"
+    volumes:
+      - .:/home/app
+      - /home/app/node_modules
+    environment:
+      TYPEORM_HOST: database
+
+  database:
+      container_name: app_mysql
+      image: mysql:8.0
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+        MYSQL_TCP_PORT: ${TYPEORM_PORT}
+        MYSQL_ROOT_PASSWORD: ${TYPEORM_PASSWORD}
+        MYSQL_DATABASE: ${TYPEORM_DATABASE}
+      ports:
+      - 3308:${TYPEORM_PORT}
+    
