@@ -1,6 +1,8 @@
+import { ApiTags } from '@nestjs/swagger';
 import { CepService } from './cep.service';
 import { Controller, Param, Get, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 
+@ApiTags('cep')
 @Controller('cep')
 export class CepController {
 

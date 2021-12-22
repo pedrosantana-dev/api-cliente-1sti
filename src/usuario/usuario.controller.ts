@@ -3,7 +3,9 @@ import { JwtAuthGuard } from './../auth/guards/jwt-guard';
 import { UsuarioDto } from './../DTO/usuario.dto';
 import { UsuarioService } from './usuario.service';
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('usuarios')
 @Controller('usuarios')
 export class UsuarioController {
 
